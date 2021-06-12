@@ -48,38 +48,38 @@ function xScale(data, chosenXAxis) {
       return textcirclesGroup;
     }
   
-//   // function used for updating circles group with new tooltip
-//   function updateToolTip(chosenXAxis, circlesGroup) {
+  // function for tooltip
+  function updateToolTip(chosenXAxis, circlesGroup) {
   
-//     var label;
+    var label;
   
-//     if (chosenXAxis === "poverty") {
-//       label = "Poverty:";
-//     }
-//     else {
-//       label = "Age:"; // name that shows on pop up 
-//     }
+    if (chosenXAxis === "poverty") {
+      label = "Poverty:";
+    }
+    else {
+      label = "Age:"; // name that shows on pop up 
+    }
   
-//     var toolTip = d3.tip()
-//       .attr("class", "tooltip")
-//       .offset([80, -60])
-//       .html(function(d) {
-//         return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
-//       });
+    var toolTip = d3.tip()
+      .attr("class", "tooltip")
+      .offset([80, -60])
+      .html(function(d) {
+        return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
+      });
     
-//     //Note:  Below circlesGroup is having the tooltip added but other elements could also have the tool tip added
-//     circlesGroup.call(toolTip);
+    //let's add tooltip to circlesGroup
+    circlesGroup.call(toolTip);
   
-//     circlesGroup.on("mouseover", function(data) {
-//       toolTip.show(data);
-//     })
-//       // onmouseout event
-//       .on("mouseout", function(data, index) {
-//         toolTip.hide(data);
-//       });
+    circlesGroup.on("mouseover", function(data) {
+      toolTip.show(data);
+    })
+      // onmouseout event
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+      });
   
-//     return circlesGroup;
-//   }
+    return circlesGroup;
+  }
 
 
 
