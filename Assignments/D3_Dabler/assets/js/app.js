@@ -38,18 +38,15 @@ function xScale(data, chosenXAxis) {
     return circlesGroup;
   }
   
-//   // Added by Erin
-//   // Note:  as compared to renderCircles, the attr iterator needs to match what is created initially
-//   // So above I use "cx" and below I use "x" -  this needs to match the attr on line 245
-//   // text is positioned by x,y attributes, circles are positioned by cx, cy attributes
-//   function rendertextCircles(textcirclesGroup, newXScale, chosenXAxis) {
+//  Function rendertextcircles, this is used to render the text that goes in the circles
+  function rendertextCircles(textcirclesGroup, newXScale, chosenXAxis) {
   
-//       textcirclesGroup.transition()
-//         .duration(1000)
-//         .attr("x", d => newXScale(d[chosenXAxis]));
+      textcirclesGroup.transition()
+        .duration(1000)
+        .attr("x", d => newXScale(d[chosenXAxis]));
     
-//       return textcirclesGroup;
-//     }
+      return textcirclesGroup;
+    }
   
 //   // function used for updating circles group with new tooltip
 //   function updateToolTip(chosenXAxis, circlesGroup) {
