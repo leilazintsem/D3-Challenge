@@ -205,7 +205,6 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
 
 // update click funstion
-labelsGroup.selectAll("text")
     .on("click", function() {
       // get value of selection
       var value = d3.select(this).attr("value");
@@ -218,7 +217,7 @@ labelsGroup.selectAll("text")
 
         // functions here found above csv import
         // updates x scale for new data
-        xLinearScale = xScale(data, chosenXAxis);s
+        xLinearScale = xScale(data, chosenXAxis);
 
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);

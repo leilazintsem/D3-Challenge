@@ -1,11 +1,6 @@
-// // I worked with Erin Wills (TA) and the following people:  ______________
-
-
-// After exploration of our dataset, we can proceed and define our funntions
-// Let's create Function xscale
-
+// let s define our funtions 
 function xScale(data, chosenXAxis) {
-    // Let's create X scales
+    // create scales
     var xLinearScale = d3.scaleLinear()
       .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
         d3.max(data, d => d[chosenXAxis]) * 1.2
@@ -16,7 +11,7 @@ function xScale(data, chosenXAxis) {
   
   }
   
-  // function render axes
+  // create renderaxes function
   function renderAxes(newXScale, xAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
   
@@ -27,8 +22,7 @@ function xScale(data, chosenXAxis) {
     return xAxis;
   }
   
-  // functionrendercircles, this is used for updating circles group with a transition to
-  // new circles
+  // create frendercircles function
   function renderCircles(circlesGroup, newXScale, chosenXAxis) {
   
     circlesGroup.transition()
@@ -38,7 +32,7 @@ function xScale(data, chosenXAxis) {
     return circlesGroup;
   }
   
-//  Function rendertextcircles, this is used to render the text that goes in the circles
+  // create rendertextcircles function
   function rendertextCircles(textcirclesGroup, newXScale, chosenXAxis) {
   
       textcirclesGroup.transition()
@@ -48,7 +42,7 @@ function xScale(data, chosenXAxis) {
       return textcirclesGroup;
     }
   
-  // function for tooltip
+  // create update tooltip dunction
   function updateToolTip(chosenXAxis, circlesGroup) {
   
     var label;
@@ -67,13 +61,12 @@ function xScale(data, chosenXAxis) {
         return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
       });
     
-    //let's add tooltip to circlesGroup
     circlesGroup.call(toolTip);
   
     circlesGroup.on("mouseover", function(data) {
       toolTip.show(data);
     })
-      // onmouseout event
+      // create onmouseout event
       .on("mouseout", function(data, index) {
         toolTip.hide(data);
       });
@@ -84,8 +77,8 @@ function xScale(data, chosenXAxis) {
 
 
 
-// Let's setup SVG
 
+// Let's setup SVG
 
 var svgWidth = 960;
 var svgHeight = 500;
@@ -97,7 +90,7 @@ var margin = {
   left: 100
 };
 
-// xScale uses width so xScale() can only be called below this point
+// scaling
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
@@ -114,35 +107,38 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
-// Let's bring in our Data and add Structure
 
-// Initial Params - includes any axis selection that has multiple options
+
+
+
+// Let's get the data and add structure
+
 var chosenXAxis = "poverty";
 
 
-// Let's Retrieve data from the CSV file and execute everything below
+// Retrieve data from the CSV file
 d3.csv("assets/data/data.csv").then(function(data, err) {
   if (err) throw err;
    
-  // Let's parse our data 
+  // parse data 
   data.forEach(function(data) {
     data.poverty = +data.poverty; // x value
-    data.healthcare = +data.healthcare;  // Y value and this sets values to numerical data types
-    data.age = +data.age; // extra x value (setting to numerical values)
+    data.healthcare = +data.healthcare;  // Y value , this converts it into numerical number
+    data.age = +data.age; // extra x value (+ make sure it converts into a number)
   });
 
   var xLinearScale = xScale(data, chosenXAxis);
 
-  // let's Create y scale function
+  // Create y scale function
   var yLinearScale = d3.scaleLinear()
     .domain([0, d3.max(data, d => d.healthcare)])
     .range([height, 0]);
 
-  // Create initial axis functions; generates the scaled axis
+  // Create initial axis functions
   var bottomAxis = d3.axisBottom(xLinearScale);
   var leftAxis = d3.axisLeft(yLinearScale);
 
-  // append x axis; 
+  // append x axis
   var xAxis = chartGroup.append("g")
     .classed("x-axis", true)
     .attr("transform", `translate(0, ${height})`)
@@ -153,8 +149,8 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     .call(leftAxis);
 
   var circlesGroupAll = chartGroup.selectAll("circlesGroup").data(data).enter();
- 
-  // append initial circles
+
+
   var circlesGroup = circlesGroupAll
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
@@ -163,7 +159,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     .attr("fill", "pink")
     .attr("opacity", ".5");
 
-    // append textcirclesgroup
+  // let's add text to the circles
   var textcirclesGroup = circlesGroupAll
     .append("text")
     .text((d) => d.abbr)
@@ -184,7 +180,7 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
   var ageLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
-    .attr("value", "age") // value to grab for event listener
+    .attr("value", "age") 
     .classed("inactive", true)
     .text("Age");
 
@@ -197,15 +193,15 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     .classed("axis-text", true)
     .text("Healthcare");
 
-  // updateToolTip function above csv import
+  // updateToolTip function 
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
 
 
 
 
-// update click funstion
-labelsGroup.selectAll("text")
+//  Update the click function 
+  labelsGroup.selectAll("text")
     .on("click", function() {
       // get value of selection
       var value = d3.select(this).attr("value");
@@ -214,11 +210,8 @@ labelsGroup.selectAll("text")
         // replaces chosenXAxis with value
         chosenXAxis = value;
 
-        // console.log(chosenXAxis)
-
-        // functions here found above csv import
         // updates x scale for new data
-        xLinearScale = xScale(data, chosenXAxis);s
+        xLinearScale = xScale(data, chosenXAxis);
 
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);
@@ -235,12 +228,12 @@ labelsGroup.selectAll("text")
           povertyLabel
             .classed("active", true)
             .classed("inactive", false);
-          povertyLabel
+          ageLabel
             .classed("active", false)
             .classed("inactive", true);
         }
         else {
-          ageLabel
+          povertyLabel
             .classed("active", false)
             .classed("inactive", true);
           ageLabel
