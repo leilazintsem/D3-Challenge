@@ -131,12 +131,6 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     data.age = +data.age; // extra x value (setting to numerical values)
   });
 
-  // Data Exploration (Section 1)
-  // console.log(data)
-
-  // xLinearScale function above csv import; Note:  xLinearScale is functioncontains scaled data specific to the defined axis
-  // Important note:  xScale uses width that is defined above; xScale can only be called below width in the code
-  // scaling function: https://www.d3indepth.com/scales/
 //   var xLinearScale = xScale(data, chosenXAxis);
 
   // let's Create y scale function
@@ -175,40 +169,40 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     .attr("y", d => yLinearScale(d.healthcare))
 
   // Create group for two x-axis labels
-//   var labelsGroup = chartGroup.append("g")
-//     .attr("transform", `translate(${width / 2}, ${height + 20})`);
+  var labelsGroup = chartGroup.append("g")
+    .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-//   var hairLengthLabel = labelsGroup.append("text")
-//     .attr("x", 0)
-//     .attr("y", 20)
-//     .attr("value", "poverty") // value to grab for event listener
-//     .classed("active", true)
-//     .text("Poverty Level");
+  var hairLengthLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 20)
+    .attr("value", "poverty") // value to grab for event listener
+    .classed("active", true)
+    .text("Poverty Level");
 
-//   // var albumsLabel = labelsGroup.append("text")
-//   //   .attr("x", 0)
-//   //   .attr("y", 40)
-//   //   .attr("value", "age") // value to grab for event listener
-//   //   .classed("inactive", true)
-//   //   .text("Age");
+  // var albumsLabel = labelsGroup.append("text")
+  //   .attr("x", 0)
+  //   .attr("y", 40)
+  //   .attr("value", "age") // value to grab for event listener
+  //   .classed("inactive", true)
+  //   .text("Age");
 
-//   // append y axis
-//   chartGroup.append("text")
-//     .attr("transform", "rotate(-90)")
-//     .attr("y", 0 - margin.left)
-//     .attr("x", 0 - (height / 2))
-//     .attr("dy", "1em")
-//     .classed("axis-text", true)
-//     .text("Healthcare");
+  // append y axis
+  chartGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .classed("axis-text", true)
+    .text("Healthcare");
 
-//   // updateToolTip function above csv import
-//   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
-
-
+  // updateToolTip function above csv import
+  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
 
 
-// // #################### 5.  ADD updates upon clicking axis text  ###############//
+
+
+// // Add update on click
 
 //   // x axis labels event listener
 //   // if you comment out the entire labelsGroup section then you can see that the plot populates but does not update when selecting the axis
