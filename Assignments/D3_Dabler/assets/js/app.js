@@ -167,16 +167,14 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     .attr("fill", "pink")
     .attr("opacity", ".5");
 
-//   // added by Erin - I wanted to add text to the circles - probably several ways of doing this but here is one.
-//   // data is bound to ciclesGroupAll like above and now I add a text element at "x" and "y", not the difference from above.
-//   // added round function to make the numbers in the cirlces have no decimals; this is a random data selection; I just wanted something inside the circles. If you want to see why these values are like they are then you need to back-calculate what xScale and transpose is doing
-//   var textcirclesGroup = circlesGroupAll
-//     .append("text")
-//     .text((d) => d.abbr)
-//     .attr("x", d => xLinearScale(d[chosenXAxis]))
-//     .attr("y", d => yLinearScale(d.healthcare))
+    // append textcirclesgroup
+  var textcirclesGroup = circlesGroupAll
+    .append("text")
+    .text((d) => d.abbr)
+    .attr("x", d => xLinearScale(d[chosenXAxis]))
+    .attr("y", d => yLinearScale(d.healthcare))
 
-//   // Create group for two x-axis labels
+  // Create group for two x-axis labels
 //   var labelsGroup = chartGroup.append("g")
 //     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
