@@ -306,7 +306,7 @@ var incomeLabel = labelsGroup.append("text")
 
         // replaces chosenXAxis with value
         chosenXAxis = value;
-        
+
         // updates x scale for new data
         xLinearScale = xScale(data, chosenXAxis);
 
