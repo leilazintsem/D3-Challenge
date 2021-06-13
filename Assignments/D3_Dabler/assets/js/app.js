@@ -114,39 +114,35 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 
+// Let's bring in our Data and add Structure
+
+// Initial Params - includes any axis selection that has multiple options
+var chosenXAxis = "poverty";
 
 
-
-
-// // #################### 4.  BRING in Data and ADD Structure ###############//
-
-// // Initial Params - includes any axis selection that has multiple options
-// var chosenXAxis = "poverty";
-
-
-// // Retrieve data from the CSV file and execute everything below
-// d3.csv("assets/data/data.csv").then(function(data, err) {
-//   if (err) throw err;
+// Let's Retrieve data from the CSV file and execute everything below
+d3.csv("assets/data/data.csv").then(function(data, err) {
+  if (err) throw err;
    
-//   // parse data - set values to numerical data types
-//   data.forEach(function(data) {
-//     data.poverty = +data.poverty; // x value
-//     data.healthcare = +data.healthcare;  // Y value
-//     data.age = +data.age; // extra x value (+ make sure it converts into a number)
-//   });
+  // Let's parse our data 
+  data.forEach(function(data) {
+    data.poverty = +data.poverty; // x value
+    data.healthcare = +data.healthcare;  // Y value and this sets values to numerical data types
+    data.age = +data.age; // extra x value (setting to numerical values)
+  });
 
-//   // Data Exploration (Section 1)
-//   // console.log(data)
+  // Data Exploration (Section 1)
+  // console.log(data)
 
-//   // xLinearScale function above csv import; Note:  xLinearScale is functioncontains scaled data specific to the defined axis
-//   // Important note:  xScale uses width that is defined above; xScale can only be called below width in the code
-//   // scaling function: https://www.d3indepth.com/scales/
+  // xLinearScale function above csv import; Note:  xLinearScale is functioncontains scaled data specific to the defined axis
+  // Important note:  xScale uses width that is defined above; xScale can only be called below width in the code
+  // scaling function: https://www.d3indepth.com/scales/
 //   var xLinearScale = xScale(data, chosenXAxis);
 
-//   // Create y scale function
-//   var yLinearScale = d3.scaleLinear()
-//     .domain([0, d3.max(data, d => d.healthcare)])
-//     .range([height, 0]);
+  // let's Create y scale function
+  var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(data, d => d.healthcare)])
+    .range([height, 0]);
 
 //   // Create initial axis functions; generates the scaled axis
 //   var bottomAxis = d3.axisBottom(xLinearScale);
