@@ -158,21 +158,14 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
   var yAxis = chartGroup.append("g")
     .call(leftAxis);
 
-//   // New by Erin - provide data first to grouped elements 
-//   // case is important - selectAll() works but SelectAll() would produce a type error - the capitalizaton makes a difference
-//   var circlesGroupAll = chartGroup.selectAll("circlesGroup").data(data).enter();
-
-//   // modfied by Erin - data is already bound to circlesGroupAll and now I am adding the 'circles' with one circle for each data
-//   // note that the attributes are "cx" and "cy"; the data is being scaled by the scaling functions defined above; see it is a function
-//   // the centers of the circles are also coming from the specific x data group 'chosenXAxis'
-//   // append initial circles
-//   var circlesGroup = circlesGroupAll
-//     .append("circle")
-//     .attr("cx", d => xLinearScale(d[chosenXAxis]))
-//     .attr("cy", d => yLinearScale(d.healthcare))
-//     .attr("r", 20)
-//     .attr("fill", "pink")
-//     .attr("opacity", ".5");
+  // append initial circles
+  var circlesGroup = circlesGroupAll
+    .append("circle")
+    .attr("cx", d => xLinearScale(d[chosenXAxis]))
+    .attr("cy", d => yLinearScale(d.healthcare))
+    .attr("r", 20)
+    .attr("fill", "pink")
+    .attr("opacity", ".5");
 
 //   // added by Erin - I wanted to add text to the circles - probably several ways of doing this but here is one.
 //   // data is bound to ciclesGroupAll like above and now I add a text element at "x" and "y", not the difference from above.
