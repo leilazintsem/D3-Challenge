@@ -144,20 +144,19 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
     .domain([0, d3.max(data, d => d.healthcare)])
     .range([height, 0]);
 
-//   // Create initial axis functions; generates the scaled axis
-//   var bottomAxis = d3.axisBottom(xLinearScale);
-//   var leftAxis = d3.axisLeft(yLinearScale);
+  // Create initial axis functions; generates the scaled axis
+  var bottomAxis = d3.axisBottom(xLinearScale);
+  var leftAxis = d3.axisLeft(yLinearScale);
 
-//   // append x axis; adds x axis chart data tick marks to chartgroup
-//   // for future axis value changes then the renderAxes() function needs called
-//   var xAxis = chartGroup.append("g")
-//     .classed("x-axis", true)
-//     .attr("transform", `translate(0, ${height})`)
-//     .call(bottomAxis);
+  // append x axis; 
+  var xAxis = chartGroup.append("g")
+    .classed("x-axis", true)
+    .attr("transform", `translate(0, ${height})`)
+    .call(bottomAxis);
 
-//   // append y axis
-//   var yAxis = chartGroup.append("g")
-//     .call(leftAxis);
+  // append y axis
+  var yAxis = chartGroup.append("g")
+    .call(leftAxis);
 
 //   // New by Erin - provide data first to grouped elements 
 //   // case is important - selectAll() works but SelectAll() would produce a type error - the capitalizaton makes a difference
