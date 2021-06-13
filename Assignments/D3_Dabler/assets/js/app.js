@@ -172,19 +172,19 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
   var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-  var hairLengthLabel = labelsGroup.append("text")
+  var povertyLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 20)
     .attr("value", "poverty") // value to grab for event listener
     .classed("active", true)
     .text("Poverty Level");
 
-  // var albumsLabel = labelsGroup.append("text")
-  //   .attr("x", 0)
-  //   .attr("y", 40)
-  //   .attr("value", "age") // value to grab for event listener
-  //   .classed("inactive", true)
-  //   .text("Age");
+  var ageLabel = labelsGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .attr("value", "age") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Age");
 
   // append y axis
   chartGroup.append("text")
@@ -202,56 +202,50 @@ d3.csv("assets/data/data.csv").then(function(data, err) {
 
 
 
-// // Add update on click
+// Add update on click
+    .on("click", function() {
+      // get value of selection
+      var value = d3.select(this).attr("value");
+      if (value !== chosenXAxis) {
 
-//   // x axis labels event listener
-//   // if you comment out the entire labelsGroup section then you can see that the plot populates but does not update when selecting the axis
-//   // note that above this section, only the updateToolTip and xScale functions are called of all the user created functions at the top of the script
-//   // the other functions at the top of the page are used to re-define the data applied to the xLinearScale function, xAxis object, circlesGroup elements, textcirclesGroup elements, circlesGroup elements
-//   labelsGroup.selectAll("text")
-//     .on("click", function() {
-//       // get value of selection
-//       var value = d3.select(this).attr("value");
-//       if (value !== chosenXAxis) {
+        // replaces chosenXAxis with value
+        chosenXAxis = value;
 
-//         // replaces chosenXAxis with value
-//         chosenXAxis = value;
+        // console.log(chosenXAxis)
 
-//         // console.log(chosenXAxis)
+        // functions here found above csv import
+        // updates x scale for new data
+        xLinearScale = xScale(data, chosenXAxis);
 
-//         // functions here found above csv import
-//         // updates x scale for new data
-//         xLinearScale = xScale(data, chosenXAxis);
-
-//         // updates x axis with transition
-//         xAxis = renderAxes(xLinearScale, xAxis);
+        // updates x axis with transition
+        xAxis = renderAxes(xLinearScale, xAxis);
         
-//         // updates circles with new x values
-//         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
-//         // New - updates text labels within circles
-//         textcirclesGroup = rendertextCircles(textcirclesGroup, xLinearScale, chosenXAxis);
-//         // updates tooltips with new info
-//         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+        // updates circles with new x values
+        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+        // New - updates text labels within circles
+        textcirclesGroup = rendertextCircles(textcirclesGroup, xLinearScale, chosenXAxis);
+        // updates tooltips with new info
+        circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
-//         // changes classes to change bold text
-//         if (chosenXAxis === "age") {
-//           albumsLabel
-//             .classed("active", true)
-//             .classed("inactive", false);
-//           hairLengthLabel
-//             .classed("active", false)
-//             .classed("inactive", true);
-//         }
-//         else {
-//           albumsLabel
-//             .classed("active", false)
-//             .classed("inactive", true);
-//           hairLengthLabel
-//             .classed("active", true)
-//             .classed("inactive", false);
-//         }
-//       }
-//     });
-// }).catch(function(error) {
-//   console.log(error);
-// });
+        // changes classes to change bold text
+        if (chosenXAxis === "age") {
+          povertyLabel
+            .classed("active", true)
+            .classed("inactive", false);
+          povertyLabel
+            .classed("active", false)
+            .classed("inactive", true);
+        }
+        else {
+          ageLabel
+            .classed("active", false)
+            .classed("inactive", true);
+          ageLabel
+            .classed("active", true)
+            .classed("inactive", false);
+        }
+      }
+    });
+}).catch(function(error) {
+  console.log(error);
+});
